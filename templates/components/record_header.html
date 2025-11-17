@@ -1,0 +1,26 @@
+{% if header %}
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+
+        <!-- Title -->
+        <h5 class="card-title">
+            {% if header.link %}
+                <a href="{{ header.link }}" class="text-decoration-none">
+                    {{ header.title }}
+                </a>
+            {% else %}
+                {{ header.title }}
+            {% endif %}
+        </h5>
+
+        <!-- Fields -->
+        <div class="row mt-2">
+            {% for label, value in header.items %}
+                <div class="col-6 col-md-3">
+                    <strong>{{ label }}:</strong> {{ value }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ object }}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card border-danger shadow-sm">
+        <div class="card-body">
+
+            <h3 class="card-title text-danger">Confirm Delete</h3>
+
+            <p class="mt-3">
+                Are you sure you want to delete:
+                <strong>{{ object }}</strong>?
+            </p>
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ cancel_url }}" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

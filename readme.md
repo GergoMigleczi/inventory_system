@@ -1,3 +1,94 @@
+# Inventory Management System
+
+A modular, extensible **Django-based inventory management system** designed for real-world operational workflows:
+
+- Product catalogue  
+- Supplier management  
+- Purchase Orders (POs)  
+- Goods Receiving (GRVs)  
+- Warehouse stock + batches  
+- Generic reusable UI framework  
+
+The system is structured for maintainability, scalability, and clarity, using Django 4, class-based views, a custom user model, and a clean domain-driven architecture.
+
+---
+
+## 📦 Features
+
+### 🔑 Core System
+- Custom user model with email authentication  
+- Modular Django apps (`products`, `suppliers`, `warehouses`, `purchasing`, `accounts`)  
+- Reusable shared UI templates  
+- Standardised CRUD structure across all apps  
+
+### 🏭 Inventory
+- Warehouse model  
+- Product batches with:
+  - quantity  
+  - expiry date  
+  - lot numbers  
+  - link to GRV line  
+- Real-time batch-level stock visibility  
+
+### 📄 Purchase Orders
+- Create, edit, delete purchase orders  
+- PO line items  
+- Business rules enforced:
+  - Only Draft POs can be edited  
+  - Only Draft POs can add or remove line items  
+- Configurable status flow (Draft → Submitted → Received/Closed)
+
+### 📥 Goods Receipts (GRVs)
+- Create GRV manually or from a PO (`?po=<id>`)  
+- Auto-population of GRV header and line items  
+- GRV line items represent quantities being received  
+- GRV status flow (Draft → Closed → Cancelled)  
+- On GRV closure:
+  - Creates inventory batches  
+  - Updates linked PO outstanding quantities  
+  - Auto-closes PO if fully received by **closed** GRVs  
+
+### 📊 Reusable UI Framework
+
+One of the major architectural decisions in this project is the **generic, reusable UI system**, consisting of:
+
+#### `list_base.html`
+- Single template for all list views  
+- Dynamic columns  
+- Dynamic actions  
+- Dropdown for extra actions  
+- Uses `UrlBuilder` for constructing parameters dynamically  
+
+#### `form_base.html`
+- Shared form template  
+- Uniform buttons  
+- Compatible with all Django ModelForms  
+
+#### `table.html`
+- Shared dynamic table component  
+- Driven entirely by `columns` + `rows` from each view  
+
+#### `RecordHeader`
+A structured helper used by list and nested list views:
+
+- Displays the “top-level” record  
+- Displays the immediate parent record  
+- Provides contextual navigation when navigating down multiple layers  
+- Prevents the user from feeling lost deep in nested data (e.g. PO → PO Lines → GRV → GRV Lines)
+
+This greatly improves clarity when navigating layered business objects.
+
+---
+
+## 🏛 Architecture Overview
+
+### 1. Modular Django Apps
+
+products/
+suppliers/
+warehouses/
+purchasing/
+accounts/
 
 Each app encapsulates its own domain logic and UI.
 

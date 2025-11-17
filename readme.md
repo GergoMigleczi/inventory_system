@@ -105,28 +105,21 @@ Behaviours:
 ## 🚀 Installation
 
 ### 1. Clone the repository
-bash
-Copy code
 git clone <repo-url>
 cd inventory_system
-2. Create virtual environment
-bash
-Copy code
+
+### 2. Create virtual environment
 python -m venv venv
 source venv/bin/activate
-3. Install dependencies
-bash
-Copy code
+
+### 3. Install dependencies
 pip install -r requirements.txt
-4. Apply database migrations
-bash
-Copy code
+
+### 4. Apply database migrations
 python manage.py migrate
-5. Create a superuser
-bash
-Copy code
+
+### 5. Create a superuser
 python manage.py createsuperuser
-6. Run the server
-bash
-Copy code
+
+### 6. Run the server
 python manage.py runserver
